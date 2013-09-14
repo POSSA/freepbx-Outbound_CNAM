@@ -1,7 +1,7 @@
 <module>
 	<rawname>outcnam</rawname>
 	<name>Outbound CNAM</name>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<publisher>POSSA</publisher>
 	<license>GPLv2+</license>
 	<category>Other</category>
@@ -10,6 +10,7 @@
 	</menuitems>
 	<changelog>
 		*0.0.1*  First release
+		*0.0.2*  Splice postion fix
 		</changelog>
 	<depends>
 		<version>ge 2.11</version>

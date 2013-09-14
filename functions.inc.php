@@ -56,26 +56,26 @@ function outcnam_hookGet_config($engine) {
 			$context = "macro-dialout-trunk";
 			$exten = "s";
 
-			$spice_position = 4;
+			$spice_position = -4;
 
 			if ($config[0]['enable_cdr']=='CHECKED' || $config[0]['enable_rpid']=='CHECKED') {
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('CIDSFSCHEME', base64_encode($config[0]['scheme'])),"",$spice_position++);
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('temp1', '${CALLERID(name)}'),"",$spice_position++);
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('CALLERID(name)', ''),"",$spice_position++);
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('temp2', '${CALLERID(number)}'),"",$spice_position++);
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('CALLERID(number)', '${DIAL_NUMBER}'),"",$spice_position++);
-				$ext->splice($context, $exten, 'gocall', new ext_agi('/var/www/html/admin/modules/superfecta/agi/superfecta.agi'),"",$spice_position++);
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('CALLERID(name)', '${temp1}'),"",$spice_position++);
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('CALLERID(number)', '${temp2}'),"",$spice_position++);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CIDSFSCHEME', base64_encode($config[0]['scheme'])),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('temp1', '${CALLERID(name)}'),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CALLERID(name)', ''),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('temp2', '${CALLERID(number)}'),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CALLERID(number)', '${DIAL_NUMBER}'),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_agi('/var/www/html/admin/modules/superfecta/agi/superfecta.agi'),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CALLERID(name)', '${temp1}'),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CALLERID(number)', '${temp2}'),"",$spice_position);
 
 				
 				
 			}
 			if ($config[0]['enable_cdr']=='CHECKED' ) {
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('CDR(accountcode,r)', '${lookupcid}'),"",$spice_position++);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CDR(accountcode,r)', '${lookupcid}'),"",$spice_position);
 			}
 			if ( $config[0]['enable_rpid']=='CHECKED') {
-				$ext->splice($context, $exten, 'gocall', new ext_setvar('CONNECTEDLINE(name,i)', '${lookupcid}'),"",$spice_position++);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CONNECTEDLINE(name,i)', '${lookupcid}'),"",$spice_position);
 			}
 		
 		break;
