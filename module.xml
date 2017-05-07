@@ -1,16 +1,18 @@
 <module>
 	<rawname>outcnam</rawname>
 	<name>Outbound CNAM</name>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<publisher>POSSA</publisher>
 	<license>GPLv2+</license>
-	<category>Other</category>
+	<category>Admin</category>
 	<menuitems>
 		<outcnam>Outbound CNAM</outcnam>
 	</menuitems>
 	<changelog>
 		*0.0.1*  First release
 		*0.0.2*  Splice postion fix
+		*0.0.3*  Change CDR Column
+		
 		</changelog>
 	<depends>
 		<version>ge 2.11</version>
