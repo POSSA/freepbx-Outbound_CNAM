@@ -5,3 +5,6 @@ Display CallerID Name for outbound dialled numbers in the CDR and/or on the call
 
 Installation:
 Download the latest tarball from http://pbxossa.org/files/outcnam/ and upload it to FreePBX using Module Admin. Then enable/disable like any FreePBX module.
+
+Update 2017-05-07
+This module was first published in the fall of 2013 with only minor changes since. It is confirmed working with FreePBX 13 and 14.
