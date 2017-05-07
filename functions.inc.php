@@ -72,7 +72,7 @@ function outcnam_hookGet_config($engine) {
 				
 			}
 			if ($config[0]['enable_cdr']=='CHECKED' ) {
-				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CDR(accountcode,r)', '${lookupcid}'),"",$spice_position);
+				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CDR(userfield,r)', '${lookupcid}'),"",$spice_position);
 			}
 			if ( $config[0]['enable_rpid']=='CHECKED') {
 				$ext->splice($context, $exten, 'customtrunk', new ext_setvar('CONNECTEDLINE(name,i)', '${lookupcid}'),"",$spice_position);
