@@ -12,7 +12,7 @@
 		*0.0.1*  First release
 		*0.0.2*  Splice postion fix
 		*0.0.3*  Change CDR Column
-		*0.0.4*  Fix typo, check for cronmanager class
+		*0.0.4*  Fix typo and add check for cronmanager class
 		</changelog>
 	<depends>
 		<version>ge 2.11</version>
