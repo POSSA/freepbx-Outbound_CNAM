@@ -16,13 +16,18 @@ if (!defined('FREEPBX_IS_AUTH')) { die('No direct script access allowed'); }
 //    see <http://www.gnu.org/licenses/>.
 //
 
-// check to see if user has automatic updates enabled in FreePBX settings
-$cm =& cronmanager::create($db);
-$online_updates = $cm->updates_enabled() ? true : false;
+// cronmanager class removed at some point from FreePBX 14
+if (class_exists('cronmanager')) {
+	// check to see if user has automatic updates enabled in FreePBX settings
+	$cm =& cronmanager::create($db);
+	$online_updates = $cm->updates_enabled() ? true : false;
 
-// check dev site to see if new version of module is available
-if ($online_updates && $foo = outcnam_vercheck()) {
-	print "<br>A <b>new version of this module is available</b> from the <a target='_blank' href='http://pbxossa.org'>PBX Open Source Software Alliance</a><br>";
+	// check dev site to see if new version of module is available
+	if ($online_updates && $foo = outcnam_vercheck()) {
+		print "<br>A <b>new version of this module is available</b> from the <a target='_blank' href='http://pbxossa.org'>PBX Open Source Software Alliance</a><br>";
+	}
+} else {
+	// todo: add version check for ver. 14+	
 }
 
 $module_local = outcnam_xml2array("modules/outcnam/module.xml");
@@ -36,7 +41,7 @@ if(isset($_POST['submit'])) {
 		outcnam_edit(1,$_POST);
 		redirect_standard();
 	
-	}
+}
 
 
 //  to add right navigation menu enclose output in <div class="rnav"> </div>
@@ -54,7 +59,7 @@ $config = outcnam_config(1);
 <table>
 		<tr>			
 			<td colspan="2">			
-			    <?php echo _('This module is used in conjunction with the Caller ID Superfecta Module to add Caller ID names to outbound dialled numbers for dispalay on the endpoint with rpid and for the CDR.'); ?>
+			    <?php echo _('This module is used in conjunction with the Caller ID Superfecta Module to add Caller ID names to outbound dialed numbers for display on the endpoint with rpid and for the CDR.'); ?>
 			</td>			
 		</tr>
 </table>
