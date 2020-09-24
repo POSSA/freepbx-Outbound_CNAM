@@ -33,7 +33,7 @@ $cols['scheme'] = "varchar(50) default NULL";
 $cols['route'] = "varchar(50) default NULL";
 
 // create the table and define index
-$sql = "CREATE TABLE IF NOT EXISTS $tablename ( temp INTEGER )";
+$sql = "CREATE TABLE IF NOT EXISTS $tablename ( temp INTEGER );";
 $check = $db->query($sql);
 if (DB::IsError($check)) {
         die_freepbx( "Can not create $tablename table: " . $check->getMessage() .  "\n");
@@ -41,11 +41,8 @@ if (DB::IsError($check)) {
 
 //check to see that the proper columns are in the table.
 $curret_cols = array();
-$sql = "SELECT * FROM $tablename";
+$sql = "DESC $tablename";
 $res = $db->query($sql);
-if (DB::IsError($res)) {
-        die_freepbx( "Can not read $tablename table: " . $res->getMessage() .  "\n");
-}
 while($row = $res->fetchRow())
 {
 	if(array_key_exists($row[0],$cols))
