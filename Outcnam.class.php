@@ -104,24 +104,30 @@ class Outcnam implements BMO
         $context = "macro-dialout-trunk";
         $exten = "s";
         $webroot = $this->FreePBX->Config->get('AMPWEBROOT');
-        /** TODO: Is this arbitrary? */
-        $spice_position = -4;
-        foreach ($configs as $config) {
-            if ($config['enable_cdr'] == 'CHECKED' || $config['enable_rpid'] == 'CHECKED') {
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CIDSFSCHEME', base64_encode($config['scheme'])), "", $spice_position);
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('temp1', '${CALLERID(name)}'), "", $spice_position);
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(name)', ''), "", $spice_position);
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('temp2', '${CALLERID(number)}'), "", $spice_position);
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(number)', '${DIAL_NUMBER}'), "", $spice_position);
-                $ext->splice($context, $exten, 'customtrunk', new \ext_agi($webroot . '/admin/modules/superfecta/agi/superfecta.agi'), "", $spice_position);
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(name)', '${temp1}'), "", $spice_position);
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(number)', '${temp2}'), "", $spice_position);
-            }
-            if ($config['enable_cdr'] == 'CHECKED') {
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CDR(userfield,r)', '${lookupcid}'), "", $spice_position);
-            }
-            if ($config['enable_rpid'] == 'CHECKED') {
-                $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CONNECTEDLINE(name,i)', '${lookupcid}'), "", $spice_position);
+        $routes = $this->FreePBX->Core->getAllRoutes();
+        $trunks = $this->FreePBX->Core->listTrunks();
+
+		// only attempt to splice if there are both outroutes and trunks defined
+		if (!(empty($routes) || empty($trunks))) {
+            /** TODO: Is this arbitrary? */
+            $spice_position = -4;
+            foreach ($configs as $config) {
+                if ($config['enable_cdr'] == 'CHECKED' || $config['enable_rpid'] == 'CHECKED') {
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CIDSFSCHEME', base64_encode($config['scheme'])), "", $spice_position);
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('temp1', '${CALLERID(name)}'), "", $spice_position);
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(name)', ''), "", $spice_position);
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('temp2', '${CALLERID(number)}'), "", $spice_position);
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(number)', '${DIAL_NUMBER}'), "", $spice_position);
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_agi($webroot . '/admin/modules/superfecta/agi/superfecta.agi'), "", $spice_position);
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(name)', '${temp1}'), "", $spice_position);
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CALLERID(number)', '${temp2}'), "", $spice_position);
+                }
+                if ($config['enable_cdr'] == 'CHECKED') {
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CDR(userfield,r)', '${lookupcid}'), "", $spice_position);
+                }
+                if ($config['enable_rpid'] == 'CHECKED') {
+                    $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CONNECTEDLINE(name,i)', '${lookupcid}'), "", $spice_position);
+                }
             }
         }
     }
