@@ -14,7 +14,6 @@
 		*0.0.3*  Change CDR Column
 		*0.0.4*  Fix typo and add check for cronmanager class
 		*0.0.5* Modernize code
-		*0.0.6*  fix splice fail if no trunks/outroutes
 	</changelog>
 	<database>
 		<table name="outcnam_config">
