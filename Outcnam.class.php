@@ -104,13 +104,16 @@ class Outcnam implements BMO
         $context = "macro-dialout-trunk";
         $exten = "s";
         $webroot = $this->FreePBX->Config->get('AMPWEBROOT');
+		// the dial macro will only exist if there is at least one outroute defined with a trunk
+		// just checking for the existence of routes and trunks is not sufficient
         $routes = $this->FreePBX->Core->getAllRoutes();
-        $trunks = $this->FreePBX->Core->listTrunks();
-
-		// only attempt to splice if there are both outroutes and trunks defined
-		if (!(empty($routes) || empty($trunks))) {
-            /** TODO: Is this arbitrary? */
-            $spice_position = -4;
+		foreach ($routes as $route) {  
+			if (!empty($this->FreePBX->Core->getRouteTrunksByID($route['route_id']))) {
+				$dial_macro_exists = true;
+			}
+		}
+		if ($dial_macro_exists) {
+            $spice_position = -4;       // -4 is arbitrary
             foreach ($configs as $config) {
                 if ($config['enable_cdr'] == 'CHECKED' || $config['enable_rpid'] == 'CHECKED') {
                     $ext->splice($context, $exten, 'customtrunk', new \ext_setvar('CIDSFSCHEME', base64_encode($config['scheme'])), "", $spice_position);
