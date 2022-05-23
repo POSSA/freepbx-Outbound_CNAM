@@ -5,8 +5,4 @@ Display CallerID Name for outbound dialled numbers in the CDR and/or on the call
 Installation:
 Download the latest tarball from http://pbxossa.org/files/outcnam/ and upload it to FreePBX using Module Admin. Then enable/disable like any FreePBX module.
 
-Update 2017-05-07
-This module was first published in the fall of 2013 with only minor changes since. It is confirmed working with FreePBX 13 and 14.
-
-Update 2021-02-21
-Refactor to come in to line with FreePBX 15+
+Update 22022 - Module got full overhaul in February for compatibility with FreeBPX 16 and set new a miniumum FreePBX version of 15. Earlier versions of FreePBX will be limited to module ver. 0.0.4 only. May Fix resolved an issue where the splice would fail if there are no outbound routes with trunks.
