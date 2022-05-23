@@ -1,7 +1,7 @@
 <module>
 	<rawname>outcnam</rawname>
 	<name>Outbound CNAM</name>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 	<publisher>POSSA</publisher>
 	<license>GPLv2+</license>
 	<category>Admin</category>
